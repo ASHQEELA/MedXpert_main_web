@@ -1,0 +1,40 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: medxpert_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -proot"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mysqli, mbstring
+      - name: Check PHP syntax
+        run: find . -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
+      - name: Import the schema
+        run: mysql -h127.0.0.1 -uroot -proot medxpert_test < database.sql
+      - name: Run the tests
+        env:
+          MX_DB_HOST: 127.0.0.1
+          MX_DB_USER: root
+          MX_DB_PASS: root
+          MX_DB_NAME: medxpert_test
+          MX_DB_PORT: 3306
+        run: php tests/run.php
