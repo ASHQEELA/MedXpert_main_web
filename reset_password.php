@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $error = reset_password($conn, $token, $new);
     if ($error === null) {
         flash_set('success', 'Your password was changed. Log in with the new password.');
-        redirect('/index.php');
+        redirect('/login.php');
     }
     flash_set('error', $error);
     redirect('/reset_password.php?token=' . rawurlencode($token));

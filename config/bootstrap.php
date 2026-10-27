@@ -258,7 +258,7 @@ function require_login(): void
         if (mx_is_api_request()) {
             mx_fail(401, 'Please log in to continue.');
         }
-        redirect('/index.php');
+        redirect('/login.php');
     }
 }
 

@@ -27,7 +27,7 @@ function auth_page_start(string $title): void
 function auth_page_end(bool $backLink = true): void
 {
     if ($backLink) {
-        echo '<p class="auth-footer-link"><a href="/index.php">Back to login</a></p>';
+        echo '<p class="auth-footer-link"><a href="/login.php">Back to login</a></p>';
     }
     ?>
         </div>

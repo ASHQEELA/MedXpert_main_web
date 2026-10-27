@@ -11,7 +11,7 @@ try {
 }
 
 $loggedIn = !empty($_SESSION['user_id']);
-$next = $loggedIn ? '/dashboard.php' : '/index.php';
+$next = $loggedIn ? '/dashboard.php' : '/login.php';
 $nextLabel = $loggedIn ? 'Go to dashboard' : 'Log in to MedXpert';
 
 auth_page_start($ok ? 'Email confirmed' : 'Link not valid');

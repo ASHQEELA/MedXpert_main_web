@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             setcookie(session_name(), '', time() - 42000, $p['path'], $p['domain'], $p['secure'], $p['httponly']);
         }
         session_destroy();
-        redirect('/index.php?deleted=1');
+        redirect('/login.php?deleted=1');
     }
 
     if ($form === 'verify') {

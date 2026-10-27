@@ -55,6 +55,19 @@ Set `mail_mode` in `config/config.local.php`.
 
 Set `mail_mode` to `smtp` and fill the `smtp_*` settings to send real email (see `docs/DEPLOY.md`). Use the Email Test page in the admin sidebar to check it. Emails go out for password reset, email confirmation, and the notifications for bookings, orders, status changes and ambulance requests.
 
+## Public pages
+
+Visitors who are not logged in see a public site.
+
+- `index.php` is the home page. Logged in users go to the dashboard. The four service signs show live counts from the database, and the top rated doctors show their name, specialty, hospital and rating only.
+- `services.php`, `about.php`, `faq.php`, `terms.php` and `contact.php` are the other pages. `privacy.php` is the privacy policy.
+- `login.php` holds login and registration. A link to `/login.php#register` opens the registration tab.
+- The contact form emails `SITE_SUPPORT_EMAIL` from `config/site.php`, or `mail_from` when that is empty. It has a hidden trap field for bots and allows 3 messages per email each hour.
+- The shared frame is `config/public_layout.php`. Styles are in `assets/css/public.css` and the menu script is `assets/js/public.js`.
+- `robots.txt` keeps search engines out of the app screens.
+- Change the text of a page by editing its file. Bangla text for the menu, home page and footer is in `lang/bn.php`. The long text on the other public pages stays in English.
+- Have a lawyer review `terms.php` and `privacy.php` before launch.
+
 ## Features
 
 - Doctor schedules: an admin sets working days, hours and minutes per appointment. Patients pick a free time. The server checks the time again when booking.
@@ -103,6 +116,7 @@ Read `docs/DEPLOY.md`. It covers hosting, HTTPS, email, backups, monitoring and 
 - `scripts/` holds `backup.sh`, `restore.sh` and `preflight.php`. `docs/` holds the deploy guide.
 - `health.php` is the address for uptime monitors.
 - `src/appointments.php` holds booking logic: book and cancel.
+- `config/public_layout.php`, `assets/css/public.css` and `assets/js/public.js` hold the public site frame.
 - `api/` holds thin endpoints. Each one reads the request, calls a function in `src/`, and returns JSON.
 - `admin/` holds the admin screens.
 - `tests/` holds the tests.

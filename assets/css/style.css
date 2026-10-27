@@ -2239,3 +2239,6 @@ html[lang="bn"] body, html[lang="bn"] button, html[lang="bn"] input, html[lang="
 .result-link { display: block; margin-top: 1rem; color: #2563eb; font-weight: 600; }
 @keyframes result-pop { from { transform: scale(.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .result-icon { animation: none; } }
+
+/* Link back to the public home page on the login screen */
+.auth-home-link { margin: 0; padding: 0.75rem var(--spacing-md) 0; text-align: left; font-size: 0.9rem; }
