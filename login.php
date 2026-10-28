@@ -80,7 +80,7 @@ if (isLoggedIn()) {
                 
                 <div class="form-group">
                     <label class="form-label"><?php te('Password'); ?></label>
-                    <input type="password" class="form-input" name="password" placeholder="At least 8 characters" minlength="8" maxlength="72" autocomplete="new-password" required>
+                    <input type="password" class="form-input" name="password" placeholder="Create a strong password" minlength="8" maxlength="72" autocomplete="new-password" required>
                 </div>
                 
                 <div class="form-group">

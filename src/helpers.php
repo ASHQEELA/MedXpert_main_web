@@ -60,6 +60,10 @@ function password_error(string $password, string $email = ''): ?string
     if (strlen($password) > 72) {
         return 'Use a password of 72 characters or fewer.';
     }
+    if (!preg_match('/[a-z]/', $password) || !preg_match('/[A-Z]/', $password)
+        || !preg_match('/[0-9]/', $password) || !preg_match('/[^A-Za-z0-9\s]/', $password)) {
+        return 'Use a lowercase letter, an uppercase letter, a number and a symbol in your password.';
+    }
     $weak = ['password', '12345678', '123456789', 'qwertyui', 'iloveyou', 'admin123', 'medxpert', 'password1'];
     if (in_array(strtolower($password), $weak, true) || ($email !== '' && strtolower($password) === strtolower($email))) {
         return 'That password is too easy to guess. Choose a different one.';

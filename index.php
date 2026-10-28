@@ -23,13 +23,10 @@ public_page_start(
                 <a class="pub-btn pub-btn-primary" href="/login.php#register"><?php te('Create free account'); ?></a>
                 <a class="pub-btn pub-btn-ghost" href="/login.php"><?php te('Log in'); ?></a>
             </div>
-            <p class="pub-emergency">
-                <i class="fas fa-triangle-exclamation" aria-hidden="true"></i>
-                <span><strong><?php te('In an emergency, call'); ?> <a href="tel:<?php echo e(SITE_EMERGENCY_NUMBER); ?>"><?php echo e(SITE_EMERGENCY_NUMBER); ?></a> <?php te('first.'); ?></strong> <?php te('Do not wait for a website.'); ?></span>
-            </p>
         </div>
 
         <div class="pub-signs" aria-label="<?php te('Services'); ?>">
+            <p class="pub-board-title"><?php te('Where do you need to go?'); ?></p>
             <a class="pub-sign pub-sign-doctors" href="/services.php#doctors">
                 <span class="pub-sign-icon"><i class="fas fa-user-doctor" aria-hidden="true"></i></span>
                 <span>
@@ -165,9 +162,10 @@ public_page_start(
 </section>
 
 <section class="pub-section">
-    <div class="pub-wrap">
+    <div class="pub-wrap pub-split">
         <div class="pub-head">
             <h2><?php te('Common questions'); ?></h2>
+            <p class="pub-more"><a href="/faq.php"><?php te('See all questions'); ?></a></p>
         </div>
         <div class="pub-faq">
             <details>
@@ -187,7 +185,6 @@ public_page_start(
                 <p><?php te('Call 999 first. MedXpert is not an emergency line.'); ?></p>
             </details>
         </div>
-        <p class="pub-more"><a href="/faq.php"><?php te('See all questions'); ?></a></p>
     </div>
 </section>
 

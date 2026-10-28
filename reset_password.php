@@ -34,7 +34,7 @@ if (!token_is_valid($conn, $token, 'reset')) {
                 <input type="hidden" name="token" value="<?php echo e($token); ?>">
                 <div class="form-group">
                     <label class="form-label" for="password">New password</label>
-                    <input type="password" id="password" class="form-input" name="password" minlength="8" maxlength="72" autocomplete="new-password" placeholder="At least 8 characters" required>
+                    <input type="password" id="password" class="form-input" name="password" minlength="8" maxlength="72" autocomplete="new-password" placeholder="Create a strong password" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="confirm">Confirm new password</label>

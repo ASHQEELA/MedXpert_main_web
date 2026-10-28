@@ -119,6 +119,8 @@ return [
     'In an emergency, call' => 'জরুরি অবস্থায় আগে কল করুন',
     'first.' => 'নম্বরে।',
     'Do not wait for a website.' => 'ওয়েবসাইটের জন্য অপেক্ষা করবেন না।',
+    'MedXpert is not an emergency line.' => 'মেডএক্সপার্ট জরুরি সেবার লাইন নয়।',
+    'Where do you need to go?' => 'আপনি কোথায় যেতে চান?',
     'Doctor consultation' => 'ডাক্তার পরামর্শ',
     'Blood bank' => 'ব্লাড ব্যাংক',
     'Online pharmacy' => 'অনলাইন ফার্মেসি',

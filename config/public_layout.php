@@ -30,16 +30,22 @@ function public_page_start(string $title, string $description, string $active = 
     <meta property="og:title" content="<?php echo e($fullTitle); ?>">
     <meta property="og:description" content="<?php echo e($description); ?>">
     <meta property="og:type" content="website">
-    <meta name="theme-color" content="#f6f8fd">
+    <meta name="theme-color" content="#0b2e26">
     <?php
     foreach (['/assets/vendor/fonts/fonts.css', '/assets/vendor/fontawesome/css/fa.min.css', '/assets/css/public.css'] as $css) {
         echo '<link rel="stylesheet" href="' . e(asset_url($css)) . '">' . "\n    ";
     }
     ?>
-    <link rel="preload" href="/assets/vendor/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/vendor/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="pub">
     <a class="pub-skip" href="#main"><?php te('Skip to main content'); ?></a>
+    <div class="pub-sos">
+        <div class="pub-wrap">
+            <i class="fas fa-triangle-exclamation" aria-hidden="true"></i>
+            <span><strong><?php te('In an emergency, call'); ?> <a href="tel:<?php echo e(SITE_EMERGENCY_NUMBER); ?>"><?php echo e(SITE_EMERGENCY_NUMBER); ?></a> <?php te('first.'); ?></strong> <?php te('MedXpert is not an emergency line.'); ?></span>
+        </div>
+    </div>
     <header class="pub-nav" id="pubNav">
         <div class="pub-wrap pub-nav-row">
             <a class="pub-brand" href="/index.php"><i class="fas fa-heartbeat" aria-hidden="true"></i> MedXpert</a>

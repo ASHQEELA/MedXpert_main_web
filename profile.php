@@ -196,7 +196,7 @@ require_once __DIR__ . '/config/header.php';
                 <input type="password" name="current_password" class="form-input" autocomplete="current-password" required>
             </div>
             <div class="form-group">
-                <label class="form-label">New Password (at least 8 characters)</label>
+                <label class="form-label">New Password</label>
                 <input type="password" name="new_password" class="form-input" minlength="8" maxlength="72" autocomplete="new-password" required>
             </div>
             <div class="form-group">

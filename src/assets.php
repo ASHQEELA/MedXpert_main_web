@@ -14,8 +14,9 @@ function asset_url(string $path): string
 /** Print the stylesheet links for every page. */
 function head_assets(): void
 {
-    foreach (['/assets/vendor/fonts/fonts.css', '/assets/vendor/fontawesome/css/fa.min.css', '/assets/css/style.css'] as $css) {
+    foreach (['/assets/vendor/fonts/fonts.css', '/assets/vendor/fontawesome/css/fa.min.css', '/assets/css/style.css', '/assets/css/theme.css'] as $css) {
         echo '<link rel="stylesheet" href="' . e(asset_url($css)) . '">' . "\n    ";
     }
-    echo '<link rel="preload" href="/assets/vendor/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>' . "\n";
+    echo '<script defer src="' . e(asset_url('/assets/js/password.js')) . '"></script>' . "\n    ";
+    echo '<link rel="preload" href="/assets/vendor/fonts/public-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>' . "\n";
 }

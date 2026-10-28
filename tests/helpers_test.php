@@ -56,7 +56,11 @@ test('password_error() enforces length and blocks common passwords', function ()
     assert_true(password_error('short') !== null);
     assert_true(password_error('password') !== null);
     assert_true(password_error(str_repeat('a', 73)) !== null);
-    assert_true(password_error('a@b.com1234', 'A@B.com1234') !== null);
+    assert_true(password_error('A@b.com1234', 'a@b.com1234') !== null);
+    assert_true(password_error('alllowercase1!') !== null, 'needs uppercase');
+    assert_true(password_error('ALLUPPERCASE1!') !== null, 'needs lowercase');
+    assert_true(password_error('NoNumbersHere!') !== null, 'needs a number');
+    assert_true(password_error('NoSymbols12345') !== null, 'needs a symbol');
     assert_same(null, password_error('Str0ngPass!9'));
 });
 
