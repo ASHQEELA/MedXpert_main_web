@@ -143,6 +143,11 @@ if (!headers_sent()) {
 require_once __DIR__ . '/../src/helpers.php';
 require_once __DIR__ . '/../src/assets.php';
 require_once __DIR__ . '/../src/i18n.php';
+
+// Bangla: translate the page text that has no te() call, and the messages in JSON replies
+if (PHP_SAPI !== 'cli' && lang_code() === 'bn') {
+    ob_start('i18n_output_filter');
+}
 require_once __DIR__ . '/../src/mail.php';
 require_once __DIR__ . '/../src/audit.php';
 require_once __DIR__ . '/../src/privacy.php';
@@ -298,6 +303,9 @@ function flash_take(): ?array
 {
     $flash = $_SESSION['flash'] ?? null;
     unset($_SESSION['flash']);
+    if (is_array($flash) && isset($flash['message']) && lang_code() === 'bn') {
+        $flash['message'] = i18n_text((string)$flash['message']) ?? $flash['message'];
+    }
     return $flash;
 }
 

@@ -14,6 +14,16 @@ function asset_url(string $path): string
 /** Print the stylesheet links for every page. */
 function head_assets(): void
 {
+    if (lang_code() === 'bn') {
+        $bn = bn_dictionary();
+        $map = [];
+        foreach ($bn as $en => $text) {
+            if (strlen($en) <= 110) {
+                $map[$en] = $text;
+            }
+        }
+        echo '<script>window.MX_T = ' . json_encode($map, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) . ';</script>' . "\n    ";
+    }
     foreach (['/assets/vendor/fonts/fonts.css', '/assets/vendor/fontawesome/css/fa.min.css', '/assets/css/style.css', '/assets/css/theme.css'] as $css) {
         echo '<link rel="stylesheet" href="' . e(asset_url($css)) . '">' . "\n    ";
     }

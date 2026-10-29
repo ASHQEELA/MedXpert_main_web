@@ -1,3 +1,59 @@
+// Bangla text for messages made in the browser. The server fills window.MX_T when the language is Bangla.
+function __(text) { return (window.MX_T && window.MX_T[text]) || text; }
+
+// Translate text the browser builds itself (lists, notes, cart). Runs only when the language is Bangla.
+(function () {
+    if (!window.MX_T) { return; }
+    var DIGITS = '০১২৩৪৫৬৭৮৯';
+    function bnDigits(v) { return String(v).replace(/[0-9]/g, function (d) { return DIGITS[d]; }); }
+    var DAYS = { Sun: 'রবি', Mon: 'সোম', Tue: 'মঙ্গল', Wed: 'বুধ', Thu: 'বৃহস্পতি', Fri: 'শুক্র', Sat: 'শনি' };
+    function translateText(text) {
+        var T = window.MX_T, m;
+        if (T[text]) { return T[text]; }
+        if ((m = /^(\d+) years? experience$/.exec(text))) { return bnDigits(m[1]) + ' বছরের অভিজ্ঞতা'; }
+        if ((m = /^(\d+) years old$/.exec(text))) { return 'বয়স ' + bnDigits(m[1]) + ' বছর'; }
+        if ((m = /^Last donated (\d{4}-\d{2}-\d{2})$/.exec(text))) { return 'সর্বশেষ রক্তদান: ' + bnDigits(m[1]); }
+        if ((m = /^Only (\d+) left$/.exec(text))) { return 'আছে মাত্র ' + bnDigits(m[1]) + 'টি'; }
+        if ((m = /^(.+) added to your cart$/.exec(text))) { return m[1] + (T[' added to your cart'] || ' added to your cart'); }
+        if ((m = /^(.+) each$/.exec(text)) && /^[^\d]*[\d,.]+$/.test(m[1])) { return m[1] + (T[' each'] || ' each'); }
+        if ((m = /^Decrease quantity of (.+)$/.exec(text))) { return m[1] + ' এর পরিমাণ কমান'; }
+        if ((m = /^Increase quantity of (.+)$/.exec(text))) { return m[1] + ' এর পরিমাণ বাড়ান'; }
+        if ((m = /^Remove (.+)$/.exec(text))) { return m[1] + ' সরান'; }
+        if (/^(Sun|Mon|Tue|Wed|Thu|Fri|Sat)(-(Sun|Mon|Tue|Wed|Thu|Fri|Sat))?, \d/.test(text)) {
+            return bnDigits(text.replace(/Sun|Mon|Tue|Wed|Thu|Fri|Sat/g, function (d) { return DAYS[d]; }).replace(/ AM/g, ' এএম').replace(/ PM/g, ' পিএম'));
+        }
+        return null;
+    }
+    function translateNode(root) {
+        if (!root || root.nodeType !== 1) { return; }
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        var node, list = [];
+        while ((node = walker.nextNode())) {
+            var tag = node.parentNode && node.parentNode.nodeName;
+            if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'TEXTAREA') { continue; }
+            list.push(node);
+        }
+        list.forEach(function (n) {
+            var raw = n.nodeValue, trimmed = raw.trim();
+            if (!trimmed || !/[A-Za-z]{2}/.test(trimmed)) { return; }
+            var out = translateText(trimmed);
+            if (out) { n.nodeValue = raw.replace(trimmed, out); }
+        });
+        var els = root.querySelectorAll('[title],[aria-label],[placeholder]');
+        for (var i = 0; i < els.length; i++) {
+            ['title', 'aria-label', 'placeholder'].forEach(function (a) {
+                var v = els[i].getAttribute(a);
+                if (v) { var o = translateText(v); if (o) { els[i].setAttribute(a, o); } }
+            });
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        new MutationObserver(function (records) {
+            records.forEach(function (r) { r.addedNodes.forEach(function (n) { translateNode(n.nodeType === 1 ? n : null); }); });
+        }).observe(document.body, { childList: true, subtree: true });
+    });
+})();
+
 // MedXpert - Modern JavaScript
 
 // Initialize on DOM load
@@ -85,8 +141,8 @@ function initSidebar() {
         if (isDesktop()) {
             const collapsed = document.body.classList.contains('sidebar-collapsed');
             toggleBtn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
-            toggleBtn.setAttribute('aria-label', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
-            toggleBtn.title = collapsed ? 'Expand sidebar' : 'Collapse sidebar';
+            toggleBtn.setAttribute('aria-label', __(collapsed ? 'Expand sidebar' : 'Collapse sidebar'));
+            toggleBtn.title = __(collapsed ? 'Expand sidebar' : 'Collapse sidebar');
         } else {
             const open = sidebar.classList.contains('active');
             toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -232,7 +288,7 @@ function initA11y() {
 
     document.querySelectorAll('.modal-close').forEach(btn => {
         btn.setAttribute('type', 'button');
-        if (!btn.getAttribute('aria-label')) btn.setAttribute('aria-label', 'Close dialog');
+        if (!btn.getAttribute('aria-label')) btn.setAttribute('aria-label', __('Close dialog'));
     });
 
     // Escape closes the open dialog
@@ -296,6 +352,7 @@ function showState(container, { icon, title, text, actionLabel, action, kind }) 
 }
 
 function setBusy(form, busy, label) {
+    label = label ? __(label) : label;
     const btn = form && form.querySelector('[type="submit"]');
     if (!btn) return;
     if (busy) {
@@ -664,7 +721,7 @@ function addToCart(id, name, price, rx) {
     line.rx = !!rx;
     cart[id] = line;
     saveCart();
-    showToast('success', name + ' added to your cart');
+    showToast('success', name + __(' added to your cart'));
 }
 
 function openCart() {
@@ -735,7 +792,7 @@ function submitOrder() {
     postJson('../api/order_medicine.php', formData)
     .then(data => {
         if (data.success) {
-            showAlert('success', 'Order placed successfully! Order #' + data.order_number);
+            showAlert('success', __('Order placed successfully! Order #') + data.order_number);
             closeModal('orderModal');
             form.reset();
             cart = {};
@@ -754,7 +811,7 @@ function submitOrder() {
 
 function requestAmbulance(type) {
     if (type === 'emergency') {
-        if (confirm('This will call 999, the national emergency line. Continue?')) {
+        if (confirm(__('This will call 999, the national emergency line. Continue?'))) {
             window.location.href = 'tel:999';
         }
     } else {
@@ -802,6 +859,7 @@ function debounce(func, wait) {
 }
 
 function showToast(type, message) {
+    message = __(message);
     const icons = { success: 'check-circle', error: 'exclamation-circle', warning: 'exclamation-triangle', info: 'info-circle' };
     const kind = icons[type] ? type : 'info';
 
