@@ -25,6 +25,23 @@ CREATE TABLE users (
     INDEX idx_role (role)
 ) ENGINE=InnoDB;
 
+-- Login sessions (one row per signed-in browser)
+CREATE TABLE auth_sessions (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    token_hash CHAR(64) NOT NULL,
+    remember TINYINT(1) NOT NULL DEFAULT 0,
+    ip VARCHAR(45) NOT NULL DEFAULT '',
+    user_agent VARCHAR(255) NOT NULL DEFAULT '',
+    created_at DATETIME NOT NULL,
+    last_seen_at DATETIME NOT NULL,
+    expires_at DATETIME NOT NULL,
+    UNIQUE KEY uq_token (token_hash),
+    INDEX idx_user (user_id),
+    INDEX idx_expires (expires_at),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 -- Doctors table
 CREATE TABLE doctors (
     id INT AUTO_INCREMENT PRIMARY KEY,

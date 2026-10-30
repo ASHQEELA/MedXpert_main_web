@@ -106,6 +106,7 @@ $mx_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
 
 if (!defined('MX_NO_SESSION') && session_status() === PHP_SESSION_NONE) {
     ini_set('session.use_strict_mode', '1');
+    ini_set('session.gc_maxlifetime', '172800'); // PHP keeps CSRF and flash data for 2 days
     ini_set('session.use_only_cookies', '1');
     session_set_cookie_params([
         'lifetime' => 0,
@@ -157,6 +158,7 @@ require_once __DIR__ . '/../src/orders.php';
 require_once __DIR__ . '/../src/charts.php';
 require_once __DIR__ . '/../src/schedule.php';
 require_once __DIR__ . '/../src/appointments.php';
+require_once __DIR__ . '/../src/auth_session.php';
 
 /* ------------------------------------------------------------------
  * 5. Database
@@ -175,6 +177,11 @@ try {
 } catch (Throwable $e) {
     error_log('MedXpert database connection failed: ' . $e->getMessage());
     mx_fail(503, 'The service is temporarily unavailable. Please try again in a few minutes.');
+}
+
+// Turn the login cookie into the signed-in user
+if (!defined('MX_NO_SESSION') && session_status() === PHP_SESSION_ACTIVE) {
+    auth_boot($conn);
 }
 
 /* ------------------------------------------------------------------
@@ -279,16 +286,32 @@ function require_admin(): void
     }
 }
 
-/** Sign a user in and rotate the session ID. */
-function login_user(array $user): void
+/**
+ * Sign a user in: rotate the PHP session, create a login in the database and set the cookie.
+ * $remember keeps the login for 30 days. Otherwise the cookie ends when the browser closes.
+ * Returns false when the login could not be saved.
+ */
+function login_user(array $user, bool $remember = false): bool
 {
+    global $conn;
     session_regenerate_id(true);
+    $_SESSION['csrf']      = bin2hex(random_bytes(32));
+    $_SESSION['last_seen'] = time();
+
+    if (isset($conn) && auth_table_ready($conn)) {
+        auth_session_end_current($conn); // a browser holds one login at a time
+        $token = auth_session_create($conn, (int)$user['id'], $remember, client_ip(), (string)($_SERVER['HTTP_USER_AGENT'] ?? ''));
+        if ($token === null) {
+            return false;
+        }
+        auth_cookie_set($token, $remember);
+    }
+
     $_SESSION['user_id']   = (int)$user['id'];
     $_SESSION['full_name'] = $user['full_name'];
     $_SESSION['email']     = $user['email'];
     $_SESSION['role']      = $user['role'];
-    $_SESSION['csrf']      = bin2hex(random_bytes(32));
-    $_SESSION['last_seen'] = time();
+    return true;
 }
 
 /* ------------------------------------------------------------------

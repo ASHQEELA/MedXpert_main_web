@@ -5,7 +5,7 @@ require_login();
 $user_id = (int)$_SESSION['user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $form = pick($_POST['form'] ?? 'profile', ['profile', 'password', 'verify', 'export', 'delete'], 'profile');
+    $form = pick($_POST['form'] ?? 'profile', ['profile', 'password', 'verify', 'export', 'delete', 'revoke_session', 'revoke_others'], 'profile');
 
     if ($form === 'export') {
         $data = export_user_data($conn, $user_id);
@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             redirect('/profile.php');
         }
         unset($_SESSION['user_id']);
+        auth_cookie_clear();
         audit_log($conn, 'user.self_delete', 'user', null, 'An account was deleted by its owner', null);
         $_SESSION = [];
         if (ini_get('session.use_cookies')) {
@@ -37,6 +38,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         session_destroy();
         redirect('/login.php?deleted=1');
+    }
+
+    if ($form === 'revoke_session') {
+        $target = (int)($_POST['session_id'] ?? 0);
+        if ($target === (int)($_SESSION['auth_session_id'] ?? -1)) {
+            flash_set('error', 'This is the device you are using. Use Log out to end it.');
+        } elseif (auth_session_revoke($conn, $user_id, $target)) {
+            flash_set('success', 'That device was logged out.');
+        } else {
+            flash_set('error', 'That login was already gone.');
+        }
+        redirect('/profile.php');
+    }
+
+    if ($form === 'revoke_others') {
+        $count = auth_sessions_revoke_others($conn, $user_id, (int)($_SESSION['auth_session_id'] ?? 0));
+        flash_set('success', $count > 0 ? 'Every other device was logged out.' : 'No other device was logged in.');
+        redirect('/profile.php');
     }
 
     if ($form === 'verify') {
@@ -68,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bind_param("si", $hash, $user_id);
             $stmt->execute();
             session_regenerate_id(true);
+            auth_sessions_revoke_others($conn, $user_id, (int)($_SESSION['auth_session_id'] ?? 0));
             flash_set('success', 'Password changed.');
         }
         redirect('/profile.php');
@@ -208,6 +228,45 @@ require_once __DIR__ . '/config/header.php';
             </button>
         </form>
     </div>
+
+    <?php $devices = auth_sessions_for_user($conn, (int)$user_id); $thisDevice = (int)($_SESSION['auth_session_id'] ?? 0); ?>
+    <?php if ($devices): ?>
+    <div class="card" style="max-width: 600px; margin: 1.5rem auto 0;">
+        <div class="card-header">
+            <h3 class="card-title"><?php te('Where you are logged in'); ?></h3>
+        </div>
+        <div class="card-body">
+            <ul class="device-list">
+                <?php foreach ($devices as $device): $isThis = (int)$device['id'] === $thisDevice; ?>
+                    <li class="device-row<?php echo $isThis ? ' is-current' : ''; ?>">
+                        <i class="fas fa-<?php echo stripos($device['user_agent'], 'Mobile') !== false || stripos($device['user_agent'], 'Android') !== false || stripos($device['user_agent'], 'iPhone') !== false ? 'mobile-screen' : 'desktop'; ?>" aria-hidden="true"></i>
+                        <div class="device-info">
+                            <strong><?php echo e(auth_describe_agent((string)$device['user_agent'])); ?></strong>
+                            <?php if ($isThis): ?><span class="badge badge-success"><?php te('This device'); ?></span><?php endif; ?>
+                            <?php if ((int)$device['remember'] === 1): ?><span class="badge badge-info"><?php te('Kept for 30 days'); ?></span><?php endif; ?>
+                            <small><?php echo e($device['ip']); ?> &middot; <?php te('Last active'); ?> <?php echo e(date('M j, Y g:i A', strtotime($device['last_seen_at']))); ?></small>
+                        </div>
+                        <?php if (!$isThis): ?>
+                            <form method="POST">
+                                <?php echo csrf_field(); ?>
+                                <input type="hidden" name="form" value="revoke_session">
+                                <input type="hidden" name="session_id" value="<?php echo (int)$device['id']; ?>">
+                                <button type="submit" class="btn btn-secondary btn-sm"><?php te('Log out'); ?></button>
+                            </form>
+                        <?php endif; ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <?php if (count($devices) > 1): ?>
+                <form method="POST" style="margin-top: 1rem;">
+                    <?php echo csrf_field(); ?>
+                    <input type="hidden" name="form" value="revoke_others">
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-right-from-bracket"></i> <?php te('Log out every other device'); ?></button>
+                </form>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php endif; ?>
 
     <div class="card" style="max-width: 600px; margin: 1.5rem auto 0;">
         <div class="card-header">

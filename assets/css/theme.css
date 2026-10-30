@@ -145,3 +145,12 @@ a.btn-primary, a.btn-primary:hover, a.btn-success:hover, a.btn-danger:hover { co
 .pw-rules i { font-size: 0.8rem; width: 1rem; text-align: center; color: #b4c9bf; }
 .pw-rules li.ok { color: #0a5c40; }
 .pw-rules li.ok i { color: #0f7a55; }
+
+/* Logged-in devices on the profile page */
+.device-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+.device-row { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 1rem; border: 1px solid var(--dark-lighter); border-radius: var(--radius); background: #fff; }
+.device-row.is-current { border-color: #0f7a55; background: #f1f8f4; }
+.device-row > i { font-size: 1.4rem; color: #0f7a55; width: 1.6rem; text-align: center; }
+.device-info { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.5rem; }
+.device-info small { flex-basis: 100%; color: var(--gray); }
+.device-row form { margin: 0; }

@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     redirect(isLoggedIn() ? '/dashboard.php' : '/index.php');
 }
 
+auth_session_end_current($conn);
 $_SESSION = [];
 if (ini_get('session.use_cookies')) {
     $p = session_get_cookie_params();

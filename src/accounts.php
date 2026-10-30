@@ -95,6 +95,7 @@ function reset_password(mysqli $conn, string $token, string $newPassword): ?stri
     $stmt = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
     $stmt->bind_param("si", $hash, $userId);
     $stmt->execute();
+    auth_sessions_revoke_all($conn, $userId); // anyone holding an old login is signed out
     notify($conn, $userId, 'Your password was changed', 'If you did not do this, reset your password again and contact us.', '/profile.php');
     return null;
 }

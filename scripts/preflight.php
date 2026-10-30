@@ -73,7 +73,7 @@ if ($conn->connect_errno) {
     $add('FAIL', 'Cannot connect to the database: ' . $conn->connect_error);
 } else {
     $add('PASS', 'Database connection works');
-    $tables = ['users', 'doctors', 'doctor_schedules', 'medicine_orders', 'order_status_history', 'notifications', 'user_tokens', 'login_attempts', 'audit_log'];
+    $tables = ['users', 'doctors', 'doctor_schedules', 'medicine_orders', 'order_status_history', 'notifications', 'user_tokens', 'login_attempts', 'audit_log', 'auth_sessions'];
     foreach ($tables as $table) {
         $conn->query("SELECT 1 FROM `$table` LIMIT 1") ? null : $add('FAIL', "Table $table is missing. Run the migrations in migrations/.");
     }

@@ -51,6 +51,10 @@ if (isLoggedIn()) {
                     <label class="form-label"><?php te('Password'); ?></label>
                     <input type="password" class="form-input" name="password" placeholder="Enter your password" required>
                 </div>
+                <label class="check-row">
+                    <input type="checkbox" name="remember" value="1">
+                    <span><?php te('Keep me logged in for 30 days on this device'); ?></span>
+                </label>
                 
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-sign-in-alt"></i> <?php te('Login'); ?>

@@ -58,7 +58,9 @@ if ($conn === null) {
     require __DIR__ . '/../src/orders.php';
     require __DIR__ . '/../src/schedule.php';
     require __DIR__ . '/../src/appointments.php';
+    require __DIR__ . '/../src/auth_session.php';
     require __DIR__ . '/services_test.php';
+    require __DIR__ . '/auth_session_test.php';
 }
 
 echo "\n";

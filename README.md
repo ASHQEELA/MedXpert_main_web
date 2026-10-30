@@ -31,6 +31,7 @@ Run these files in order on a database that already has data:
 - `migrations/003_login_attempts.sql` (adds login rate limiting)
 - `migrations/004_phase4_features.sql` (doctor schedules, prescriptions, notifications, account tokens, order tracking)
 - `migrations/005_phase5_production.sql` (audit log and consent records)
+- `migrations/006_auth_sessions.sql` (cookie based login sessions)
 
 Back up your data first.
 
@@ -54,6 +55,18 @@ Set `mail_mode` in `config/config.local.php`.
 - `off`: sends nothing. In-app notifications still work.
 
 Set `mail_mode` to `smtp` and fill the `smtp_*` settings to send real email (see `docs/DEPLOY.md`). Use the Email Test page in the admin sidebar to check it. Emails go out for password reset, email confirmation, and the notifications for bookings, orders, status changes and ambulance requests.
+
+## Login sessions
+
+Login uses a random token in an HttpOnly, SameSite cookie (`mx_auth`, or `__Host-mx_auth` on HTTPS). The database keeps only a SHA-256 hash of the token in `auth_sessions`.
+
+- A normal login ends after 2 hours without a request, or after 24 hours in total.
+- "Keep me logged in" lasts 30 days.
+- Logout, a password change or a password reset ends logins at once. A password change keeps only the device you used.
+- The Profile page lists every device and lets you log one out, or all others.
+- A user keeps at most 10 logins. The oldest goes first.
+- Run `migrations/006_auth_sessions.sql` on an existing database. Until you do, the app keeps working with PHP sessions only.
+- Source: `src/auth_session.php`. Tests: `tests/auth_session_test.php`.
 
 ## Public pages
 

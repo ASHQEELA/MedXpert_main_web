@@ -47,7 +47,10 @@ if (password_needs_rehash($user['password'], PASSWORD_BCRYPT, ['cost' => 12])) {
     $upd->execute();
 }
 
-login_user($user);
+$remember = !empty($_POST['remember']);
+if (!login_user($user, $remember)) {
+    mx_fail(500, 'Something went wrong on our side. Please try again in a moment.');
+}
 
 echo json_encode([
     'success' => true,
