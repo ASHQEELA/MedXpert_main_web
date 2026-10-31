@@ -30,7 +30,7 @@ function public_page_start(string $title, string $description, string $active = 
     <meta property="og:title" content="<?php echo e($fullTitle); ?>">
     <meta property="og:description" content="<?php echo e($description); ?>">
     <meta property="og:type" content="website">
-    <meta name="theme-color" content="#0b2e26">
+    <meta name="theme-color" content="#0C2490">
     <?php
     foreach (['/assets/vendor/fonts/fonts.css', '/assets/vendor/fontawesome/css/fa.min.css', '/assets/css/public.css'] as $css) {
         echo '<link rel="stylesheet" href="' . e(asset_url($css)) . '">' . "\n    ";
