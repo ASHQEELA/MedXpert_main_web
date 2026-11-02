@@ -234,3 +234,14 @@ a.btn-primary, a.btn-primary:hover, a.btn-success:hover, a.btn-danger:hover { co
 
 @media (prefers-reduced-motion: reduce) { .btn:active, .filter-btn:active, .slot-btn:active, .menu-item:active { transform: none; } .progress-bar span, .menu-title-btn i { transition: none; } }
 .menu-title-btn { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-2); padding: 0.5rem 1rem; }
+
+/* Icon-only sidebar: section headers become thin dividers and every icon stays visible */
+body.sidebar-collapsed .menu-title-btn { min-height: 0; height: 1px; padding: 0; margin: 0.75rem 0.5rem; overflow: hidden; font-size: 0; background: rgba(255, 255, 255, 0.18); pointer-events: none; display: block; width: auto; }
+body.sidebar-collapsed .menu-title-btn i, body.sidebar-collapsed .menu-title-btn span { display: none; }
+body.sidebar-collapsed .menu-section.folded .menu-item { display: flex; }
+
+/* Name and role in the sidebar footer: light text on the dark sidebar */
+.sidebar .user-info h4 { color: #fff; }
+.sidebar .user-info p { color: var(--color-6); }
+.sidebar .user-profile { color: #fff; }
+.sidebar-footer { border-top: 1px solid rgba(255, 255, 255, 0.14); }

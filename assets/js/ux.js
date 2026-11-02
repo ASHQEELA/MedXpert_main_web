@@ -90,6 +90,8 @@
         document.querySelectorAll('.sidebar-menu .menu-section').forEach(function (section, i) {
             var title = section.querySelector('.menu-title');
             if (!title) { return; }
+            // A section with a single link has nothing to fold, so its title stays plain
+            if (section.querySelectorAll('.menu-item').length < 2) { return; }
             var key = 's' + i;
             var hasActive = !!section.querySelector('.menu-item.active');
             var btn = document.createElement('button');
