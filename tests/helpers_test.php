@@ -29,7 +29,7 @@ test('pick() accepts only listed values', function () {
 });
 
 test('valid_phone() accepts Bangladesh formats and rejects junk', function () {
-    foreach (['01712345678', '+8801712345678', '+880 1712-345678'] as $ok) {
+    foreach (['01712345678', '+8801712345678', '+880 1712-345678', '(017) 1234-5678', '017.1234.5678'] as $ok) {
         assert_true(valid_phone($ok), "$ok should be valid");
     }
     foreach (['', 'abc', '12', '0171234567890123456789', '01712<script>'] as $bad) {

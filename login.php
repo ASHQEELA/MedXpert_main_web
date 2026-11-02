@@ -154,8 +154,13 @@ if (isLoggedIn()) {
             .then(data => {
                 if (data.success) {
                     showToast('success', data.message || 'Registration complete. Please log in.');
+                    var typedEmail = formData.get('email');
                     document.querySelector('[data-tab="loginForm"]').click();
                     e.target.reset();
+                    var loginEmail = document.querySelector('#loginForm [name=email]');
+                    var loginPass = document.querySelector('#loginForm [name=password]');
+                    if (loginEmail) { loginEmail.value = typedEmail; }
+                    if (loginPass) { loginPass.focus(); }
                 } else {
                     showToast('error', data.message || 'Registration failed. Please try again.');
                 }

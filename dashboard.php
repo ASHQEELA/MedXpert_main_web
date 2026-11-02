@@ -47,6 +47,17 @@ $stmt->execute();
 $latest_order = $stmt->get_result()->fetch_assoc();
 
 $first_name = explode(' ', trim($_SESSION['full_name']))[0];
+
+// Profile progress: a short checklist that shows how close the account is to complete
+$me = db_query("SELECT phone, address, email_verified_at FROM users WHERE id = ?", 'i', [$uid])->fetch_assoc();
+$steps = [
+    [t('Confirm your email'), !empty($me['email_verified_at']), '/profile.php'],
+    [t('Add your phone number'), !empty($me['phone']), '/profile.php'],
+    [t('Add your address'), !empty(trim((string)$me['address'])), '/profile.php'],
+    [t('Book your first appointment'), (int)$stats['total_appointments'] > 0, '/modules/consult.php'],
+];
+$stepsDone = count(array_filter($steps, fn($x) => $x[1]));
+$stepsPct = (int)round($stepsDone / count($steps) * 100);
 ?>
 
 <h1><?php te('Dashboard'); ?></h1>
@@ -64,6 +75,24 @@ $first_name = explode(' ', trim($_SESSION['full_name']))[0];
         <h2><?php te('Hello'); ?>, <?php echo e($first_name); ?></h2>
         <p><?php te('Here is what needs your attention today.'); ?></p>
     </div>
+
+    <?php if ($stepsDone < count($steps)): ?>
+    <section class="progress-card" aria-labelledby="progressTitle">
+        <div class="progress-head">
+            <h3 id="progressTitle"><?php te('Finish setting up'); ?></h3>
+            <span class="progress-count"><?php echo (int)$stepsDone; ?> / <?php echo count($steps); ?></span>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $stepsPct; ?>" aria-valuemin="0" aria-valuemax="100"><span style="width: <?php echo $stepsPct; ?>%"></span></div>
+        <ul class="progress-steps">
+            <?php foreach ($steps as [$label, $done, $href]): ?>
+                <li class="<?php echo $done ? 'done' : ''; ?>">
+                    <i class="fas fa-<?php echo $done ? 'circle-check' : 'circle'; ?>" aria-hidden="true"></i>
+                    <?php if ($done): ?><span><?php echo e($label); ?></span><?php else: ?><a href="<?php echo e($href); ?>"><?php echo e($label); ?></a><?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </section>
+    <?php endif; ?>
 
     <!-- Up next -->
     <div class="up-next">

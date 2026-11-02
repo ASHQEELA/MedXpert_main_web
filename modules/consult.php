@@ -34,6 +34,7 @@ require_once '../config/header.php';
         <form id="appointmentForm" onsubmit="event.preventDefault(); submitAppointment();">
             <div class="modal-body">
                 <input type="hidden" id="appointmentDoctorId" name="doctor_id">
+                <p class="booking-summary" id="appointmentSummary" aria-live="polite"></p>
                 
                 <div class="form-group">
                     <label class="form-label" for="appointmentDate">Appointment Date</label>
@@ -49,8 +50,8 @@ require_once '../config/header.php';
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">Consultation Type</label>
-                    <select class="form-input" name="consultation_type" required>
+                    <label class="form-label" for="consultationType">Consultation Type</label>
+                    <select class="form-input" id="consultationType" name="consultation_type" required>
                         <option value="in-person">In-Person Visit</option>
                         <option value="video">Video Consultation</option>
                         <option value="phone">Phone Consultation</option>
@@ -58,8 +59,8 @@ require_once '../config/header.php';
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">Symptoms / Reason for Visit</label>
-                    <textarea class="form-input" name="symptoms" rows="4" placeholder="Describe your symptoms or reason for consultation..." required></textarea>
+                    <label class="form-label" for="symptomsField">Symptoms / Reason for Visit</label>
+                    <textarea class="form-input" id="symptomsField" name="symptoms" maxlength="1000" rows="4" placeholder="Describe your symptoms or reason for consultation..." required></textarea>
                 </div>
             </div>
             <div class="modal-footer">

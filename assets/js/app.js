@@ -602,7 +602,19 @@ function renderMedicines(medicines) {
 function bookAppointment(doctorId) {
     // Set doctor ID in hidden field
     document.getElementById('appointmentDoctorId').value = doctorId;
-    document.getElementById('appointmentDate').value = '';
+    // Remind the person who they are booking, and how much it costs (working memory)
+    const trigger = document.querySelector(`[data-action="book"][data-id="${doctorId}"]`);
+    const card = trigger && trigger.closest('.item-card');
+    const summary = document.getElementById('appointmentSummary');
+    if (summary && card) {
+        const name = card.querySelector('h3');
+        const sub = card.querySelector('.item-sub');
+        const fee = card.querySelector('.price');
+        summary.textContent = [name && name.textContent, sub && sub.textContent, fee && fee.textContent].filter(Boolean).join(' · ');
+    }
+    // Start with today so the free times are already on screen (default effect)
+    const dateField = document.getElementById('appointmentDate');
+    dateField.value = dateField.min || '';
     loadSlots();
     openModal('appointmentModal');
 }
@@ -628,20 +640,33 @@ function loadSlots() {
                 return;
             }
             picker.innerHTML = '';
-            data.slots.forEach(slot => {
-                const button = document.createElement('button');
-                button.type = 'button';
-                button.className = 'slot-btn';
-                button.textContent = slotLabel(slot.time);
-                button.disabled = !slot.available;
-                button.setAttribute('aria-pressed', 'false');
-                button.addEventListener('click', () => {
-                    picker.querySelectorAll('.slot-btn').forEach(b => { b.classList.remove('selected'); b.setAttribute('aria-pressed', 'false'); });
-                    button.classList.add('selected');
-                    button.setAttribute('aria-pressed', 'true');
-                    hidden.value = slot.time;
+            // Group the times so a long list is easy to scan (chunking)
+            const groups = [['Morning', 0, 12], ['Afternoon', 12, 17], ['Evening', 17, 24]];
+            groups.forEach(([label, from, to]) => {
+                const inGroup = data.slots.filter(slot => { const h = parseInt(slot.time, 10); return h >= from && h < to; });
+                if (!inGroup.length) return;
+                const heading = document.createElement('p');
+                heading.className = 'slot-group';
+                heading.textContent = __(label);
+                picker.appendChild(heading);
+                const row = document.createElement('div');
+                row.className = 'slot-row';
+                picker.appendChild(row);
+                inGroup.forEach(slot => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'slot-btn';
+                    button.textContent = slotLabel(slot.time);
+                    button.disabled = !slot.available;
+                    button.setAttribute('aria-pressed', 'false');
+                    button.addEventListener('click', () => {
+                        picker.querySelectorAll('.slot-btn').forEach(b => { b.classList.remove('selected'); b.setAttribute('aria-pressed', 'false'); });
+                        button.classList.add('selected');
+                        button.setAttribute('aria-pressed', 'true');
+                        hidden.value = slot.time;
+                    });
+                    row.appendChild(button);
                 });
-                picker.appendChild(button);
             });
             if (!data.slots.some(slot => slot.available)) {
                 picker.insertAdjacentHTML('beforeend', '<p class="slot-note">All times are taken on this day. Try another date.</p>');
@@ -677,6 +702,8 @@ function submitAppointment() {
             showAlert('success', 'Appointment booked successfully!');
             closeModal('appointmentModal');
             form.reset();
+            // Show the result where the person can see it (visibility of system status)
+            setTimeout(() => { window.location.href = '/my_appointments.php'; }, 1400);
         } else {
             showAlert('error', data.message || 'Failed to book appointment');
         }

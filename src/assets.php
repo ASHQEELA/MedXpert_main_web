@@ -28,5 +28,6 @@ function head_assets(): void
         echo '<link rel="stylesheet" href="' . e(asset_url($css)) . '">' . "\n    ";
     }
     echo '<script defer src="' . e(asset_url('/assets/js/password.js')) . '"></script>' . "\n    ";
+    echo '<script defer src="' . e(asset_url('/assets/js/ux.js')) . '"></script>' . "\n    ";
     echo '<link rel="preload" href="/assets/vendor/fonts/public-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>' . "\n";
 }

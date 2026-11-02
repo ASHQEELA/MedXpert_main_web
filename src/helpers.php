@@ -37,7 +37,8 @@ function pick($value, array $allowed, $fallback = null)
 
 function valid_phone(string $phone): bool
 {
-    return (bool)preg_match('/^\+?[0-9][0-9 \-]{6,18}$/', $phone);
+    // Be lenient in what we accept: spaces, dashes, dots and brackets are fine
+    return (bool)preg_match('/^\+?\(?[0-9][0-9 \-().]{6,18}$/', $phone);
 }
 
 function valid_date(string $date): bool
