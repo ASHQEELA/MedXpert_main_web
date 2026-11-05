@@ -2,6 +2,7 @@
    Loaded after style.css. It changes colors, fonts and surfaces only, not layout. */
 
 :root {
+    --surface: #ffffff;
     --color-1: #242424;
     --color-2: #F0CC9C;
     --color-3: #C09C54;
@@ -68,7 +69,7 @@ h1, h2, h3, .page-title h1, .sidebar-logo h2, .auth-header h1, .card-title, .sta
 /* Page and auth backgrounds */
 .main-content { background: var(--dark); }
 .auth-wrapper { background: color-mix(in srgb, var(--color-6) 28%, #fff); }
-.top-bar { background: var(--white); border-bottom: 1px solid var(--dark-lighter); }
+.top-bar { background: var(--surface); border-bottom: 1px solid var(--dark-lighter); }
 .top-bar::after { display: none; }
 .site-footer::before { display: none; }
 
@@ -124,9 +125,9 @@ h1, h2, h3, .page-title h1, .sidebar-logo h2, .auth-header h1, .card-title, .sta
 .quick-action:nth-child(2) .quick-action-icon { background: #d4231a; }
 .quick-action:nth-child(3) .quick-action-icon { background: var(--color-8); }
 .quick-action.emergency .quick-action-icon { background: var(--color-3); }
-.stat-card { background: #fff; }
+.stat-card { background: var(--surface); }
 .stat-card::after { background: var(--color-8); opacity: 0.07; }
-.item-card, .info-card { background: #fff; }
+.item-card, .info-card { background: var(--surface); }
 .item-card:hover, .info-card:hover { border-color: var(--color-6); box-shadow: var(--shadow-md); }
 .avatar, .med-thumb { background: color-mix(in srgb, var(--color-6) 35%, #fff); color: var(--color-10); }
 .fab-emergency { background-color: #d4231a; background-image: none; border-radius: 999px; }
@@ -136,13 +137,13 @@ h1, h2, h3, .page-title h1, .sidebar-logo h2, .auth-header h1, .card-title, .sta
 .badge-primary { background: color-mix(in srgb, var(--color-6) 35%, #fff); color: var(--color-10); }
 .btn-secondary { background: color-mix(in srgb, var(--color-6) 35%, #fff); color: var(--color-10); }
 .btn-secondary:hover { background: color-mix(in srgb, var(--color-6) 55%, #fff); color: var(--color-10); }
-.form-input { background: #fff; border-color: color-mix(in srgb, var(--color-7) 50%, #fff); }
+.form-input { background: var(--surface); border-color: color-mix(in srgb, var(--color-7) 50%, #fff); }
 .form-input:focus { border-color: var(--color-8); box-shadow: 0 0 0 3px rgba(12, 60, 216, 0.2); }
 .stat-icon.blue { color: #fff; }
 .table thead, .auth-tabs { background: color-mix(in srgb, var(--color-6) 28%, #fff); }
 .table tbody tr:hover { background: color-mix(in srgb, var(--color-6) 16%, #fff); }
 .cart-total, .notice.unread { background: color-mix(in srgb, var(--color-6) 22%, #fff); border-color: color-mix(in srgb, var(--color-6) 60%, #fff); }
-.top-bar { background: #fff; }
+.top-bar { background: var(--surface); }
 .up-next .card:first-child { box-shadow: var(--shadow-lg); }
 .badge-info, .alert-info { color: var(--color-10); }
 .info, .text-info { color: var(--color-10); }
@@ -163,7 +164,7 @@ a.btn-primary, a.btn-primary:hover, a.btn-success:hover, a.btn-danger:hover { co
 
 /* Logged-in devices on the profile page */
 .device-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
-.device-row { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 1rem; border: 1px solid var(--dark-lighter); border-radius: var(--radius); background: #fff; }
+.device-row { display: flex; align-items: center; gap: 1rem; padding: 0.9rem 1rem; border: 1px solid var(--dark-lighter); border-radius: var(--radius); background: var(--surface); }
 .device-row.is-current { border-color: var(--color-8); background: color-mix(in srgb, var(--color-6) 16%, #fff); }
 .device-row > i { font-size: 1.4rem; color: var(--color-8); width: 1.6rem; text-align: center; }
 .device-info { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.5rem; }
@@ -219,7 +220,7 @@ a.btn-primary, a.btn-primary:hover, a.btn-success:hover, a.btn-danger:hover { co
 .slot-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
 /* Profile progress on the dashboard */
-.progress-card { margin-bottom: 1.5rem; padding: 1.2rem 1.4rem; background: #fff; border: 1px solid var(--dark-lighter); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+.progress-card { margin-bottom: 1.5rem; padding: 1.2rem 1.4rem; background: var(--surface); border: 1px solid var(--dark-lighter); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
 .progress-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.7rem; }
 .progress-head h3 { margin: 0; font-size: 1.1rem; }
 .progress-count { font-weight: 600; color: var(--color-11); }

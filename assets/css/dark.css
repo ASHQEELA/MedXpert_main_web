@@ -1,0 +1,147 @@
+/* Dark theme and the theme fade. Loaded last, so it only changes colors. */
+
+/* Smooth fade: the class is on <html> for a moment while the theme changes */
+html.theme-anim,
+html.theme-anim *,
+html.theme-anim *::before,
+html.theme-anim *::after {
+    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease,
+                fill 0.35s ease, stroke 0.35s ease, box-shadow 0.35s ease !important;
+}
+@media (prefers-reduced-motion: reduce) {
+    html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after { transition: none !important; }
+}
+
+/* Toggle button */
+.theme-toggle {
+    width: 44px; height: 44px; flex: none;
+    display: inline-grid; place-items: center;
+    border: 1px solid var(--dark-lighter, #d6e0f5); border-radius: 999px;
+    background: var(--surface, #fff); color: var(--ink, #242424);
+    font-size: 1.05rem; cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.theme-toggle:hover { border-color: var(--color-8); color: var(--color-8); }
+.theme-toggle:active { transform: scale(0.94); }
+.theme-toggle:focus-visible { outline: 3px solid var(--color-5); outline-offset: 2px; }
+.theme-toggle i { transition: transform 0.4s ease; }
+.theme-toggle:hover i { transform: rotate(18deg); }
+.theme-toggle-app { margin-left: auto; }
+.theme-toggle-float { position: fixed; top: 16px; right: 16px; z-index: 60; box-shadow: var(--shadow); }
+.theme-toggle-pub { border-color: var(--pub-line); background: var(--pub-white); color: var(--pub-text); }
+.pub-nav-actions .theme-toggle-pub:hover { color: var(--color-8); border-color: var(--color-8); }
+
+/* ---------- Dark palette ---------- */
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --surface: #151b30;
+    --dark: #0d1222;
+    --dark-light: #151b30;
+    --dark-lighter: #28314d;
+    --ink: #eef1fb;
+    --gray: #a3aed0;
+    --gray-light: #d3d9ec;
+    --gray-lighter: #e1e6f4;
+
+    --primary-light: var(--color-6);
+    --primary-dark: #6f8df0;
+    --primary-soft: #1c2748;
+    --info: var(--color-6);
+    --success: #7be083;
+    --warning: var(--color-2);
+    --danger: #ff8f88;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 10px 24px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 24px 50px rgba(0, 0, 0, 0.55);
+
+    --grad-soft: linear-gradient(#1c2748, #1c2748);
+
+    /* Public pages */
+    --pub-ink: #eef1fb;
+    --pub-text: #d3d9ec;
+    --pub-muted: #a3aed0;
+    --pub-paper: #0d1222;
+    --pub-mint: #111a36;
+    --pub-white: #151b30;
+    --pub-line: #28314d;
+    --pub-soft: #1c2748;
+    --pub-leaf-dark: var(--color-6);
+}
+
+:root[data-theme="dark"] body { background: var(--dark); color: var(--gray-light); }
+
+/* App surfaces */
+:root[data-theme="dark"] .main-content { background: var(--dark); }
+:root[data-theme="dark"] .auth-wrapper { background: #0d1222; }
+:root[data-theme="dark"] .top-bar,
+:root[data-theme="dark"] .top-bar { background: var(--surface); border-bottom-color: var(--dark-lighter); }
+:root[data-theme="dark"] .sidebar,
+:root[data-theme="dark"] .sidebar-header { background: #0a1230; }
+:root[data-theme="dark"] .sidebar { box-shadow: 1px 0 0 rgba(255, 255, 255, 0.06); }
+:root[data-theme="dark"] .site-footer { background: var(--surface); border-top-color: var(--dark-lighter); }
+:root[data-theme="dark"] .stat-card,
+:root[data-theme="dark"] .item-card,
+:root[data-theme="dark"] .info-card { background: var(--surface); }
+
+/* Tinted fills: pale blue becomes deep blue with light text */
+:root[data-theme="dark"] .badge-info,
+:root[data-theme="dark"] .alert-info,
+:root[data-theme="dark"] .badge-primary,
+:root[data-theme="dark"] .btn-secondary,
+:root[data-theme="dark"] .avatar,
+:root[data-theme="dark"] .med-thumb,
+:root[data-theme="dark"] .booking-summary { background: #1c2748; color: var(--color-6); }
+:root[data-theme="dark"] .btn-secondary:hover { background: #26346a; color: #fff; }
+:root[data-theme="dark"] .table thead,
+:root[data-theme="dark"] .auth-tabs { background: #1a2240; }
+:root[data-theme="dark"] .table tbody tr:hover { background: #19213c; }
+:root[data-theme="dark"] .cart-total,
+:root[data-theme="dark"] .notice.unread { background: #19213c; border-color: #2c3a68; }
+:root[data-theme="dark"] .device-row { background: var(--surface); }
+:root[data-theme="dark"] .device-row.is-current { background: #19213c; border-color: var(--color-8); }
+:root[data-theme="dark"] .pw-toggle:hover { background: #1c2748; color: var(--color-6); }
+:root[data-theme="dark"] .progress-card { background: var(--surface); }
+:root[data-theme="dark"] .progress-bar { background: #26304f; }
+:root[data-theme="dark"] .badge-success { background: #123a1a; color: #8ff09a; }
+:root[data-theme="dark"] .badge-warning { background: #3d3216; color: var(--color-2); }
+
+/* Forms */
+:root[data-theme="dark"] .form-input,
+:root[data-theme="dark"] .search-input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="file"]) {
+    background: #0f1528; color: var(--ink); border-color: #2d3858;
+}
+:root[data-theme="dark"] .form-input::placeholder,
+:root[data-theme="dark"] input::placeholder,
+:root[data-theme="dark"] textarea::placeholder { color: #7f8bb0; }
+:root[data-theme="dark"] .form-input:focus,
+:root[data-theme="dark"] .search-input:focus { background: #0f1528; }
+:root[data-theme="dark"] .lang-btn { background: var(--surface); }
+:root[data-theme="dark"] .theme-toggle { background: var(--surface); color: var(--ink); border-color: var(--dark-lighter); }
+:root[data-theme="dark"] .theme-toggle:hover { color: var(--color-6); border-color: var(--color-6); }
+
+/* Public pages */
+:root[data-theme="dark"] .pub-nav { background: rgba(13, 18, 34, 0.92); }
+:root[data-theme="dark"] .pub-footer { background: #080c19; }
+:root[data-theme="dark"] .pub-rating { background: #3d3216; color: var(--color-2); }
+:root[data-theme="dark"] .pub-sos { background: #a81c16; }
+
+/* Links and text that used the dark navy */
+:root[data-theme="dark"] .auth-tab.active,
+:root[data-theme="dark"] .auth-home-link a,
+:root[data-theme="dark"] .auth-footer-link a,
+:root[data-theme="dark"] .forgot-link,
+:root[data-theme="dark"] a.link,
+:root[data-theme="dark"] .info,
+:root[data-theme="dark"] .text-info,
+:root[data-theme="dark"] .pw-rules li.ok,
+:root[data-theme="dark"] .link-button { color: var(--color-6); }
+:root[data-theme="dark"] .auth-tab.active { border-bottom-color: var(--color-5); }
+:root[data-theme="dark"] .pub-btn-ghost { color: var(--color-6) !important; border-color: var(--color-6); }
+:root[data-theme="dark"] .pub-btn-ghost:hover { background: var(--color-8); border-color: var(--color-8); color: #fff !important; }

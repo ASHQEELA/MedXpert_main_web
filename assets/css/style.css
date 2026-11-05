@@ -136,7 +136,7 @@ a:hover {
 }
 
 .auth-container {
-    background: var(--white);
+    background: var(--surface);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-xl);
     overflow: hidden;
@@ -182,7 +182,7 @@ a:hover {
 }
 
 .auth-tab.active {
-    background: var(--white);
+    background: var(--surface);
     color: var(--primary-dark);
 }
 
@@ -214,7 +214,7 @@ a:hover {
     border-radius: var(--radius);
     font-size: 1rem;
     transition: var(--transition);
-    background: var(--white);
+    background: var(--surface);
     color: var(--dark);
 }
 
@@ -1140,7 +1140,7 @@ a:hover {
 }
 
 .emergency-card .btn {
-    background: white;
+    background: var(--surface);
     color: #FF6B6B;
     font-weight: 600;
 }
@@ -1616,7 +1616,7 @@ a:hover {
     top: -60px;
     z-index: 3000;
     padding: 0.75rem 1rem;
-    background: var(--white);
+    background: var(--surface);
     color: var(--dark);
     font-weight: 600;
     border-radius: var(--radius);
@@ -1675,7 +1675,7 @@ main:focus { outline: none; }
     gap: 0.9rem;
     margin-top: var(--spacing);
     padding: 0.75rem 1.25rem;
-    background: var(--white);
+    background: var(--surface);
     color: var(--danger-solid);
     border-radius: var(--radius-md);
     text-decoration: none;
@@ -1773,15 +1773,15 @@ main:focus { outline: none; }
 .auth-wrapper { background: linear-gradient(160deg, #dbe8ff 0%, var(--dark) 65%); }
 
 .top-bar {
-    background: var(--white);
+    background: var(--surface);
     border-bottom: none;
     box-shadow: 0 2px 16px rgba(12, 36, 144, 0.07);
     backdrop-filter: none;
 }
 
 /* Sidebar */
-.sidebar { background: var(--white); border-right: none; box-shadow: 6px 0 32px rgba(12, 36, 144, 0.06); }
-.sidebar-header { background: var(--white); border-bottom: 1px solid var(--dark-lighter); }
+.sidebar { background: var(--surface); border-right: none; box-shadow: 6px 0 32px rgba(12, 36, 144, 0.06); }
+.sidebar-header { background: var(--surface); border-bottom: 1px solid var(--dark-lighter); }
 .sidebar-logo h2 { color: var(--primary); }
 .sidebar-logo p { color: var(--gray); }
 .menu-item { border-radius: 16px; color: var(--gray-light); font-weight: 600; }
@@ -1821,24 +1821,24 @@ main:focus { outline: none; }
     color: var(--ink);
 }
 
-.form-input:focus { background: var(--white); border-color: var(--primary); }
+.form-input:focus { background: var(--surface); border-color: var(--primary); }
 
 /* Pill search bar */
 .search-input {
     height: 54px;
     padding-left: 3.25rem;
-    background: var(--white);
+    background: var(--surface);
     border: 1.5px solid transparent;
     border-radius: 999px;
     box-shadow: var(--shadow);
 }
 
-.search-input:focus { background: var(--white); border-color: var(--primary); }
+.search-input:focus { background: var(--surface); border-color: var(--primary); }
 .search-icon { left: 1.25rem; color: var(--primary); }
 
 /* Category chips */
 .filter-btn {
-    background: var(--white);
+    background: var(--surface);
     border: 1.5px solid transparent;
     border-radius: 16px;
     box-shadow: var(--shadow-sm);
@@ -1893,8 +1893,8 @@ main:focus { outline: none; }
 .up-next .card:first-child .empty,
 .up-next .card:first-child .row,
 .up-next .card:first-child .row span { color: var(--white); }
-.up-next .card:first-child .badge { background: var(--white); color: var(--primary-light); }
-.up-next .card:first-child .btn { background: var(--white); color: var(--primary-dark); }
+.up-next .card:first-child .badge { background: var(--surface); color: var(--primary-light); }
+.up-next .card:first-child .btn { background: var(--surface); color: var(--primary-dark); }
 .up-next .card:first-child a { color: var(--white); text-decoration: underline; }
 
 /* Tables */
@@ -1923,12 +1923,12 @@ main:focus { outline: none; }
 
 /* Misc */
 .hotline small { color: var(--gray); }
-.site-footer { background: var(--white); border-top: 1px solid #e8eefb; }
+.site-footer { background: var(--surface); border-top: 1px solid #e8eefb; }
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible { outline-color: var(--primary); }
 .search-input:focus-visible { outline-color: var(--primary); }
 .skip-link:focus { color: var(--ink); }
 
-.up-next .card:first-child .row .badge { background: var(--white); color: var(--primary-light); }
+.up-next .card:first-child .row .badge { background: var(--surface); color: var(--primary-light); }
 
 /* Blue modal header keeps white text */
 .modal-header h3, .modal-close { color: var(--white); }
@@ -2103,7 +2103,7 @@ button.menu-item {
     padding: 0.5rem 0.75rem;
     border: 1px solid var(--border, #d6e0f5);
     border-radius: 999px;
-    background: #fff;
+    background: var(--surface);
     color: inherit;
     font: inherit;
     font-size: 0.875rem;
@@ -2164,7 +2164,7 @@ html[lang="bn"] body, html[lang="bn"] button, html[lang="bn"] input, html[lang="
 }
 .lang-form { margin: 0 0 0.75rem; }
 .lang-form-auth { display: flex; justify-content: flex-end; margin: 0.5rem 1rem 0; }
-.lang-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.8rem; border: 1px solid var(--border, #d6e0f5); border-radius: 999px; background: #fff; color: inherit; font: inherit; font-size: 0.85rem; cursor: pointer; }
+.lang-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.4rem 0.8rem; border: 1px solid var(--border, #d6e0f5); border-radius: 999px; background: var(--surface); color: inherit; font: inherit; font-size: 0.85rem; cursor: pointer; }
 .lang-btn:hover { border-color: #0C3CD8; }
 
 /* Phone tab bar */
@@ -2196,7 +2196,7 @@ html[lang="bn"] body, html[lang="bn"] button, html[lang="bn"] input, html[lang="
 .tracker { list-style: none; display: flex; gap: 0; margin: 0 0 0.5rem; padding: 0; }
 .track-step { flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.2rem; text-align: center; color: #94a3b8; font-size: 0.8rem; }
 .track-step small { font-size: 0.7rem; color: #64748b; }
-.track-dot { width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid #cbd5e1; position: relative; z-index: 1; }
+.track-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--surface); border: 2px solid #cbd5e1; position: relative; z-index: 1; }
 .track-step::before { content: ''; position: absolute; top: 6px; left: -50%; width: 100%; height: 2px; background: #cbd5e1; }
 .track-step:first-child::before { display: none; }
 .track-step.done, .track-step.current { color: #1e3a8a; }

@@ -11,9 +11,16 @@ function asset_url(string $path): string
     return $path . (is_file($file) ? '?v=' . filemtime($file) : '');
 }
 
+/** Set the saved theme before the page paints, so there is no flash of the wrong theme. */
+function theme_boot(): void
+{
+    echo '<script>(function(){try{var t=localStorage.getItem("mxTheme");if(!t&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches){t="dark";}if(t==="dark"){document.documentElement.setAttribute("data-theme","dark");}}catch(e){}})();</script>' . "\n    ";
+}
+
 /** Print the stylesheet links for every page. */
 function head_assets(): void
 {
+    theme_boot();
     if (lang_code() === 'bn') {
         $bn = bn_dictionary();
         $map = [];
@@ -24,10 +31,11 @@ function head_assets(): void
         }
         echo '<script>window.MX_T = ' . json_encode($map, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP) . ';</script>' . "\n    ";
     }
-    foreach (['/assets/vendor/fonts/fonts.css', '/assets/vendor/fontawesome/css/fa.min.css', '/assets/css/style.css', '/assets/css/theme.css'] as $css) {
+    foreach (['/assets/vendor/fonts/fonts.css', '/assets/vendor/fontawesome/css/fa.min.css', '/assets/css/style.css', '/assets/css/theme.css', '/assets/css/dark.css'] as $css) {
         echo '<link rel="stylesheet" href="' . e(asset_url($css)) . '">' . "\n    ";
     }
     echo '<script defer src="' . e(asset_url('/assets/js/password.js')) . '"></script>' . "\n    ";
+    echo '<script defer src="' . e(asset_url('/assets/js/theme.js')) . '"></script>' . "\n    ";
     echo '<script defer src="' . e(asset_url('/assets/js/ux.js')) . '"></script>' . "\n    ";
     echo '<link rel="preload" href="/assets/vendor/fonts/public-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>' . "\n";
 }

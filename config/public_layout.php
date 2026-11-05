@@ -32,10 +32,12 @@ function public_page_start(string $title, string $description, string $active = 
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#0C2490">
     <?php
-    foreach (['/assets/vendor/fonts/fonts.css', '/assets/vendor/fontawesome/css/fa.min.css', '/assets/css/public.css'] as $css) {
+    foreach (['/assets/vendor/fonts/fonts.css', '/assets/vendor/fontawesome/css/fa.min.css', '/assets/css/public.css', '/assets/css/dark.css'] as $css) {
         echo '<link rel="stylesheet" href="' . e(asset_url($css)) . '">' . "\n    ";
     }
     ?>
+    <?php theme_boot(); ?>
+    <script defer src="<?php echo e(asset_url('/assets/js/theme.js')); ?>"></script>
     <link rel="preload" href="/assets/vendor/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="pub">

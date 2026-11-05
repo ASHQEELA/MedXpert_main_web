@@ -604,5 +604,7 @@ return [
     'This field is required.' => 'এই ঘরটি পূরণ করা আবশ্যক।',
     'Enter an email like name@example.com.' => 'name@example.com এর মতো ইমেইল লিখুন।',
     'Enter a phone number such as 01712345678.' => '01712345678 এর মতো ফোন নম্বর লিখুন।',
+    'Switch to dark theme' => 'ডার্ক থিমে যান',
+    'Switch to light theme' => 'লাইট থিমে যান',
     'Press / to search' => 'খুঁজতে / চাপুন',
 ];
