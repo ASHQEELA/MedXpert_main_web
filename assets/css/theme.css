@@ -246,3 +246,11 @@ body.sidebar-collapsed .menu-section.folded .menu-item { display: flex; }
 .sidebar .user-info p { color: var(--color-6); }
 .sidebar .user-profile { color: #fff; }
 .sidebar-footer { border-top: 1px solid rgba(255, 255, 255, 0.14); }
+
+/* One logo mark everywhere: white heartbeat on a blue rounded square */
+.auth-header h1 i, .auth-header i.fa-heartbeat {
+    color: #fff; background: var(--color-8);
+    width: 40px; height: 40px; border-radius: 11px;
+    display: inline-grid; place-items: center;
+    font-size: 1.15rem; vertical-align: middle; margin-right: 0.35rem;
+}

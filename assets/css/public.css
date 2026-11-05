@@ -272,7 +272,6 @@ body.pub {
 .pub-doctor:nth-child(1) { border-top-color: var(--color-8); }
 .pub-doctor:nth-child(3) { border-top-color: var(--color-3); }
 .pub-brand i { background: var(--color-8); }
-.pub-footer .pub-brand i { background: var(--color-2); color: var(--color-1); }
 .pub-closing { color: var(--color-1); }
 .pub-rating i { color: #7a5a14; }
 .pub-hero { background: var(--pub-mint); }
@@ -281,3 +280,6 @@ body.pub {
 .pub-faq details[open] summary::after { background: var(--color-2); color: var(--color-1); }
 .pub-band p, .pub-band li { color: var(--color-12); }
 .pub-footer-brand p, .pub-fine { color: var(--color-6); }
+
+/* Same logo mark as the app: white heartbeat on a blue square, also in the footer */
+.pub-brand i, .pub-footer .pub-brand i { background: var(--color-8); color: #fff; }
