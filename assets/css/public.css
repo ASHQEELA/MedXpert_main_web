@@ -291,9 +291,9 @@ body.pub {
     --pub-elev-3: 0 4px 8px rgba(12, 24, 70, 0.14), 0 20px 44px rgba(12, 24, 70, 0.26);
 }
 .pub-nav { box-shadow: 0 4px 18px rgba(12, 24, 70, 0.16); }
-.pub-doctor, .pub-side, .pub-service, .pub-steps li, .pub-faq details, .pub-alert, .pub-note, .pub-form { box-shadow: var(--pub-elev-2); }
-.pub-doctor, .pub-steps li, .pub-faq details { transition: box-shadow 0.2s ease, transform 0.2s ease; }
-.pub-doctor:hover, .pub-steps li:hover, .pub-faq details:hover { box-shadow: var(--pub-elev-3); transform: translateY(-3px); }
+.pub-doctor, .pub-side, .pub-alert, .pub-note { box-shadow: var(--pub-elev-2); }
+.pub-doctor { transition: box-shadow 0.2s ease, transform 0.2s ease; }
+.pub-doctor:hover { box-shadow: var(--pub-elev-3); transform: translateY(-3px); }
 .pub-signs { box-shadow: 0 14px 28px rgba(8, 18, 70, 0.35), 0 40px 80px -20px rgba(8, 18, 70, 0.6); }
 .pub-btn-primary { box-shadow: 0 3px 0 rgba(8, 24, 110, 0.55), 0 8px 16px rgba(12, 60, 216, 0.35); transition: box-shadow 0.15s ease, transform 0.15s ease, background-color 0.15s ease; }
 .pub-btn-primary:hover { box-shadow: 0 5px 0 rgba(8, 24, 110, 0.55), 0 12px 22px rgba(12, 60, 216, 0.4); transform: translateY(-2px); }
@@ -303,4 +303,4 @@ body.pub {
 .pub-field input:focus, .pub-field select:focus, .pub-field textarea:focus { box-shadow: 0 0 0 3px rgba(12, 60, 216, 0.25), 0 4px 12px rgba(12, 60, 216, 0.15); }
 .pub-service-icon, .pub-avatar, .pub-brand i { box-shadow: 0 4px 10px rgba(12, 24, 70, 0.28); }
 .pub-footer-sos { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
-@media (prefers-reduced-motion: reduce) { .pub-doctor:hover, .pub-steps li:hover, .pub-faq details:hover, .pub-btn-primary:hover, .pub-btn-primary:active { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .pub-doctor:hover, .pub-btn-primary:hover, .pub-btn-primary:active { transform: none; } }

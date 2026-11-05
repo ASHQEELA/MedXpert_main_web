@@ -310,3 +310,7 @@ body.sidebar-collapsed .sidebar-menu { padding-left: 0.5rem; padding-right: 0.5r
 body.sidebar-collapsed .menu-item,
 body.sidebar-collapsed .menu-form,
 body.sidebar-collapsed .menu-item-button { width: 100%; min-width: 0; margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; box-sizing: border-box; border-radius: 14px; }
+
+/* Wrappers without their own fill carry no shadow. The input inside has its own. */
+.search-box { box-shadow: none; }
+.search-box .search-input { box-shadow: var(--elev-1); }
