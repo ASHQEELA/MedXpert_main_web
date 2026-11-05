@@ -303,3 +303,10 @@ body.sidebar-collapsed .menu-section.folded .menu-item { display: flex; }
 @media (prefers-reduced-motion: reduce) {
     .item-card:hover, .info-card:hover, .quick-action:hover, .stat-card:hover, .btn:hover, .btn:active { transform: none; }
 }
+
+/* Collapsed sidebar: the selected pill stays centred inside the bar, with or without a scrollbar */
+body.sidebar-collapsed .sidebar { overflow-x: clip; scrollbar-width: thin; scrollbar-gutter: stable; }
+body.sidebar-collapsed .sidebar-menu { padding-left: 0.5rem; padding-right: 0.5rem; }
+body.sidebar-collapsed .menu-item,
+body.sidebar-collapsed .menu-form,
+body.sidebar-collapsed .menu-item-button { width: 100%; min-width: 0; margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; box-sizing: border-box; border-radius: 14px; }
