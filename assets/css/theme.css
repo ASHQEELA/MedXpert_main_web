@@ -254,3 +254,52 @@ body.sidebar-collapsed .menu-section.folded .menu-item { display: flex; }
     display: inline-grid; place-items: center;
     font-size: 1.15rem; vertical-align: middle; margin-right: 0.35rem;
 }
+
+/* Depth: three shadow levels used across the app. Level 1 rests, level 2 floats, level 3 lifts. */
+:root {
+    --elev-1: 0 1px 2px rgba(12, 24, 70, 0.12), 0 3px 8px rgba(12, 24, 70, 0.10);
+    --elev-2: 0 2px 4px rgba(12, 24, 70, 0.12), 0 8px 22px rgba(12, 24, 70, 0.16);
+    --elev-3: 0 4px 8px rgba(12, 24, 70, 0.14), 0 18px 40px rgba(12, 24, 70, 0.24);
+    --elev-btn: 0 3px 0 rgba(8, 24, 110, 0.55), 0 8px 16px rgba(12, 60, 216, 0.35);
+    --elev-inset: inset 0 2px 4px rgba(12, 24, 70, 0.10);
+    --shadow-sm: var(--elev-1);
+    --shadow: var(--elev-2);
+    --shadow-md: var(--elev-2);
+    --shadow-lg: var(--elev-3);
+    --shadow-xl: var(--elev-3);
+}
+
+.card, .stat-card, .item-card, .info-card, .quick-action, .progress-card,
+.device-row, .table-container, .search-box, .filter-btn, .cart-total, .booking-summary { box-shadow: var(--elev-1); }
+.card, .stat-card, .item-card, .info-card, .quick-action { box-shadow: var(--elev-2); }
+
+.item-card, .info-card, .quick-action, .stat-card, .filter-btn { transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease; }
+.item-card:hover, .info-card:hover, .quick-action:hover, .stat-card:hover { box-shadow: var(--elev-3); transform: translateY(-3px); }
+.filter-btn:hover { box-shadow: var(--elev-2); transform: translateY(-1px); }
+
+.top-bar { box-shadow: 0 4px 16px rgba(12, 24, 70, 0.14); }
+.sidebar { box-shadow: 6px 0 28px rgba(8, 18, 70, 0.35); }
+.site-footer { box-shadow: 0 -4px 16px rgba(12, 24, 70, 0.08); }
+
+.btn-primary, .btn-success, .btn-danger { box-shadow: var(--elev-btn); }
+.btn-primary:hover, .btn-success:hover, .btn-danger:hover { box-shadow: 0 5px 0 rgba(8, 24, 110, 0.55), 0 12px 22px rgba(12, 60, 216, 0.4); transform: translateY(-2px); }
+.btn-primary:active, .btn-success:active, .btn-danger:active { box-shadow: 0 1px 0 rgba(8, 24, 110, 0.55); transform: translateY(2px); }
+.btn-secondary { box-shadow: var(--elev-1); }
+.btn-secondary:hover { box-shadow: var(--elev-2); transform: translateY(-1px); }
+.btn { transition: box-shadow 0.15s ease, transform 0.15s ease, background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+
+.form-input, .search-input, select, textarea { box-shadow: var(--elev-inset); }
+.form-input:focus, .search-input:focus { box-shadow: 0 0 0 3px rgba(12, 60, 216, 0.25), 0 4px 12px rgba(12, 60, 216, 0.15); }
+.form-input[aria-invalid="true"] { box-shadow: 0 0 0 3px rgba(179, 21, 15, 0.2); }
+
+.modal-content, .modal-container { box-shadow: 0 10px 20px rgba(8, 18, 70, 0.25), 0 30px 70px rgba(8, 18, 70, 0.45); }
+.toast { box-shadow: var(--elev-3); }
+.auth-container { box-shadow: 0 12px 24px rgba(8, 18, 70, 0.22), 0 40px 80px rgba(8, 18, 70, 0.35); }
+.fab-emergency { box-shadow: 0 6px 14px rgba(180, 20, 14, 0.5), 0 16px 32px rgba(8, 18, 70, 0.3); }
+.stat-icon, .quick-action-icon, .avatar, .user-avatar { box-shadow: 0 3px 8px rgba(12, 24, 70, 0.25); }
+.badge { box-shadow: 0 1px 2px rgba(12, 24, 70, 0.15); }
+.hero-card, .up-next .card:first-child { box-shadow: 0 8px 16px rgba(8, 18, 70, 0.3), 0 24px 48px rgba(8, 18, 70, 0.3); }
+
+@media (prefers-reduced-motion: reduce) {
+    .item-card:hover, .info-card:hover, .quick-action:hover, .stat-card:hover, .btn:hover, .btn:active { transform: none; }
+}

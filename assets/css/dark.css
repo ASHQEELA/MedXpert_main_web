@@ -163,3 +163,35 @@ html.theme-anim *::after {
 :root[data-theme="dark"] .main-content { color: var(--gray-light); }
 :root[data-theme="dark"] .progress-count,
 :root[data-theme="dark"] .progress-steps li.done span { color: var(--gray); }
+
+/* Shadows in the dark theme: deeper black, plus a faint light edge so cards still lift off the page */
+:root[data-theme="dark"] {
+    --elev-1: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 2px 4px rgba(0, 0, 0, 0.5), 0 4px 10px rgba(0, 0, 0, 0.4);
+    --elev-2: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 3px 6px rgba(0, 0, 0, 0.55), 0 10px 26px rgba(0, 0, 0, 0.5);
+    --elev-3: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 6px 12px rgba(0, 0, 0, 0.6), 0 20px 44px rgba(0, 0, 0, 0.65);
+    --elev-inset: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+    --pub-elev-1: var(--elev-1);
+    --pub-elev-2: var(--elev-2);
+    --pub-elev-3: var(--elev-3);
+}
+:root[data-theme="dark"] .top-bar,
+:root[data-theme="dark"] .pub-nav { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55); }
+:root[data-theme="dark"] .sidebar { box-shadow: 6px 0 28px rgba(0, 0, 0, 0.6); }
+:root[data-theme="dark"] .site-footer { box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4); }
+:root[data-theme="dark"] .modal-content,
+:root[data-theme="dark"] .modal-container,
+:root[data-theme="dark"] .auth-container { box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6), 0 40px 80px rgba(0, 0, 0, 0.7); }
+:root[data-theme="dark"] .form-input,
+:root[data-theme="dark"] .search-input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] .pub-field input,
+:root[data-theme="dark"] .pub-field select,
+:root[data-theme="dark"] .pub-field textarea { box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5); }
+:root[data-theme="dark"] .form-input:focus,
+:root[data-theme="dark"] .search-input:focus,
+:root[data-theme="dark"] .pub-field input:focus,
+:root[data-theme="dark"] .pub-field select:focus,
+:root[data-theme="dark"] .pub-field textarea:focus { box-shadow: 0 0 0 3px rgba(48, 120, 228, 0.45); }
+:root[data-theme="dark"] .btn-primary,
+:root[data-theme="dark"] .pub-btn-primary { box-shadow: 0 3px 0 rgba(4, 12, 60, 0.9), 0 8px 16px rgba(0, 0, 0, 0.5); }

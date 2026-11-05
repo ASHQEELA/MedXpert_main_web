@@ -283,3 +283,24 @@ body.pub {
 
 /* Same logo mark as the app: white heartbeat on a blue square, also in the footer */
 .pub-brand i, .pub-footer .pub-brand i { background: var(--color-8); color: #fff; }
+
+/* Depth for the public pages */
+:root {
+    --pub-elev-1: 0 1px 2px rgba(12, 24, 70, 0.12), 0 3px 8px rgba(12, 24, 70, 0.10);
+    --pub-elev-2: 0 2px 4px rgba(12, 24, 70, 0.12), 0 10px 24px rgba(12, 24, 70, 0.16);
+    --pub-elev-3: 0 4px 8px rgba(12, 24, 70, 0.14), 0 20px 44px rgba(12, 24, 70, 0.26);
+}
+.pub-nav { box-shadow: 0 4px 18px rgba(12, 24, 70, 0.16); }
+.pub-doctor, .pub-side, .pub-service, .pub-steps li, .pub-faq details, .pub-alert, .pub-note, .pub-form { box-shadow: var(--pub-elev-2); }
+.pub-doctor, .pub-steps li, .pub-faq details { transition: box-shadow 0.2s ease, transform 0.2s ease; }
+.pub-doctor:hover, .pub-steps li:hover, .pub-faq details:hover { box-shadow: var(--pub-elev-3); transform: translateY(-3px); }
+.pub-signs { box-shadow: 0 14px 28px rgba(8, 18, 70, 0.35), 0 40px 80px -20px rgba(8, 18, 70, 0.6); }
+.pub-btn-primary { box-shadow: 0 3px 0 rgba(8, 24, 110, 0.55), 0 8px 16px rgba(12, 60, 216, 0.35); transition: box-shadow 0.15s ease, transform 0.15s ease, background-color 0.15s ease; }
+.pub-btn-primary:hover { box-shadow: 0 5px 0 rgba(8, 24, 110, 0.55), 0 12px 22px rgba(12, 60, 216, 0.4); transform: translateY(-2px); }
+.pub-btn-primary:active { box-shadow: 0 1px 0 rgba(8, 24, 110, 0.55); transform: translateY(2px); }
+.pub-btn-ghost, .pub-btn-light, .pub-lang button { box-shadow: var(--pub-elev-1); }
+.pub-field input, .pub-field select, .pub-field textarea { box-shadow: inset 0 2px 4px rgba(12, 24, 70, 0.10); }
+.pub-field input:focus, .pub-field select:focus, .pub-field textarea:focus { box-shadow: 0 0 0 3px rgba(12, 60, 216, 0.25), 0 4px 12px rgba(12, 60, 216, 0.15); }
+.pub-service-icon, .pub-avatar, .pub-brand i { box-shadow: 0 4px 10px rgba(12, 24, 70, 0.28); }
+.pub-footer-sos { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
+@media (prefers-reduced-motion: reduce) { .pub-doctor:hover, .pub-steps li:hover, .pub-faq details:hover, .pub-btn-primary:hover, .pub-btn-primary:active { transform: none; } }
