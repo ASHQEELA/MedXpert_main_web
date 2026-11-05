@@ -314,3 +314,6 @@ body.sidebar-collapsed .menu-item-button { width: 100%; min-width: 0; margin-lef
 /* Wrappers without their own fill carry no shadow. The input inside has its own. */
 .search-box { box-shadow: none; }
 .search-box .search-input { box-shadow: var(--elev-1); }
+
+/* Mobile bottom bar shadow and colour transition */
+.tabbar { box-shadow: 0 -4px 16px rgba(12, 24, 70, 0.16); }
