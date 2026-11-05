@@ -145,3 +145,21 @@ html.theme-anim *::after {
 :root[data-theme="dark"] .auth-tab.active { border-bottom-color: var(--color-5); }
 :root[data-theme="dark"] .pub-btn-ghost { color: var(--color-6) !important; border-color: var(--color-6); }
 :root[data-theme="dark"] .pub-btn-ghost:hover { background: var(--color-8); border-color: var(--color-8); color: #fff !important; }
+
+/* Sand panels keep dark text in the dark theme */
+:root[data-theme="dark"] .pub-closing,
+:root[data-theme="dark"] .pub-closing h2,
+:root[data-theme="dark"] .pub-closing h3,
+:root[data-theme="dark"] .pub-closing p { color: var(--color-1); }
+:root[data-theme="dark"] .pub-faq details[open] summary::after { background: var(--color-2); color: var(--color-1); }
+
+/* App footer text */
+:root[data-theme="dark"] .site-footer p,
+:root[data-theme="dark"] .footer-grid p,
+:root[data-theme="dark"] .footer-note { color: var(--gray-light); }
+:root[data-theme="dark"] .footer-grid h4 { color: var(--gray); }
+
+/* theme.css sets dark text on .main-content. Text inside it must follow the dark theme. */
+:root[data-theme="dark"] .main-content { color: var(--gray-light); }
+:root[data-theme="dark"] .progress-count,
+:root[data-theme="dark"] .progress-steps li.done span { color: var(--gray); }
